@@ -93,7 +93,7 @@ router.get('/me',auth,async(req,res)=>{
                                //GET all profiles
 router.get('/',async(req,res)=>{
     try{
-               const profiles=await Profile.find().populate('user',['name','avatar'])
+               const profiles=await Profile.find().populate('user',['name','avatar']).sort({ likes: -1});
                res.json(profiles)
     }catch(error){
         console.log(error.message)
@@ -115,11 +115,11 @@ router.get('/',async(req,res)=>{
                         router.delete('/',auth,async(req,res)=>{ 
                             try{
                                 await Profile.findOneAndRemove({user:req.user.id})
-                                await User.findOneAndRemove({user:req.user.id})
-                            
+                                await User.findOneAndRemove({_id:req.user.id})
+                                  
                                 res.json({msg:'User removed'})
                             }catch(error){
-                                     console.log(error.message)
+                                
                                      res.status(500).send('Server error')
                             }
                             
@@ -314,7 +314,7 @@ router.get('/',async(req,res)=>{
                    if(!profile) return res.status(400).json({msg:'Profile not found of this user'})
                          //check if post already liked
                 if(profile.likes.filter(like=>like.user.toString()===req.user.id).length>0){
-                    return res.status(404).json({ msg: 'Profile already liked' });
+                    return res.json({ msg: 'Profile already liked' });
                 }
                 // adds element to beginning of array
                 profile.likes.unshift({user:req.user.id})
@@ -335,7 +335,7 @@ router.get('/',async(req,res)=>{
                    if(!profile) return res.status(400).json({msg:'Profile not found of this user'})
                             //check if post already liked
                    if(profile.likes.filter(like=>like.user.toString()===req.user.id).length===0){
-                       return res.status(404).json({ msg: 'Profile not liked' });
+                       return res.json({ msg: 'Profile not liked' });
                    }
    
                    const removeIndex=profile.likes.map(like=>like.user.toString()).indexOf(req.user.id)

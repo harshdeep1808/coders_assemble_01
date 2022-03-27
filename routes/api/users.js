@@ -22,7 +22,8 @@ router.post('/',[
     {
         return res.status(400).json({errors:errors.array()})
     }
-     const {name,email,password}=req.body
+     const {name,email,password,image}=req.body
+     const avatar=image
     try{
                //check if user already exists  
 
@@ -32,11 +33,11 @@ router.post('/',[
        }
                //get users gravatar
       
-     const avatar=gravatar.url(email,{
+     /*const avatar=gravatar.url(email,{
          s:'200', //size
          r:'pg', //r means rating ..pg means pg rated images for kids only
          d:'mm'   //d means default image
-     })
+     })  */
       const newUser=new User({
           name,
           email,

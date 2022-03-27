@@ -9,6 +9,7 @@ dotenv.config()
 const usersRouter=require('./routes/api/users')
 const profileRouter=require('./routes/api/profile.js')
 const authRouter=require('./routes/api/auth.js')
+const uploadRoutes=require('./routes/api/upload.js')
 
 const app=express()
 connectDB()
@@ -20,6 +21,9 @@ app.use(express.json())
 app.use('/api/users',usersRouter)
 app.use('/api/auth',authRouter)
 app.use('/api/profile',profileRouter)
+app.use('/api/upload', uploadRoutes)
+
+app.use('/uploads', express.static(path.join(__dirname, '/uploads')))
 
 if(process.env.NODE_ENV==='production'){
     app.use(express.static('client/build'))
