@@ -16,8 +16,6 @@ import AddEducation from './components/profile-forms/AddEducation'
 import AddExperience from './components/profile-forms/AddExperience'
 import Profiles from './components/Profiles/Profiles'
 import Profile from './components/profile/Profile'
-import Post from './components/post/Post'
-import Posts from './components/posts/Posts'
 
 import store from './store'
 

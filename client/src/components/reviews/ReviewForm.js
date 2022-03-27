@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { addPost } from '../../actions/post';
 import axios from 'axios'
 import setAlert from '../../actions/alert.js'
 const ReviewForm = ({_id}) => {
